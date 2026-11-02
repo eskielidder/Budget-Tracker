@@ -6,6 +6,8 @@ obj/
 .vs/
 *.user
 *.suo
+*.keystore
+*.jks
 
 # OS-generated files
 .DS_Store
