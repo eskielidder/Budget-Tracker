@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BudgetTracker.Services;
+using Microsoft.Extensions.Logging;
 
 namespace BudgetTracker
 {
@@ -18,7 +19,8 @@ namespace BudgetTracker
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
+            //Services: one shared instance for the apps lifetime
+            builder.Services.AddSingleton<DatabaseService>();
             return builder.Build();
         }
     }
