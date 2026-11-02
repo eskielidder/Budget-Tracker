@@ -5,6 +5,8 @@ namespace BudgetTracker.Views
     public partial class TransactionsPage : ContentPage
     {
         private readonly TransactionsViewModel _viewModel;
+        //Typed access for bindings inside the list rows
+        public TransactionsViewModel ViewModel => _viewModel;
 
         // DI supplies the ViewModel
         public TransactionsPage(TransactionsViewModel viewModel)
