@@ -1,5 +1,6 @@
 ﻿using BudgetTracker.Services;
 using BudgetTracker.ViewModels;
+using BudgetTracker.Views;
 using Microsoft.Extensions.Logging;
 
 namespace BudgetTracker
@@ -23,6 +24,7 @@ namespace BudgetTracker
             //Services: one shared instance for the apps lifetime
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddTransient<TransactionsViewModel>();
+            builder.Services.AddTransient<TransactionsPage>();
             return builder.Build();
         }
     }

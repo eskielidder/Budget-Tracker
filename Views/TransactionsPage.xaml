@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BudgetTracker.ViewModels"
+             xmlns:models="clr-namespace:BudgetTracker.Models"
+             x:Class="BudgetTracker.Views.TransactionsPage"
+             x:DataType="vm:TransactionsViewModel"
+             Title="Transactions">
+
+    <Grid RowDefinitions="Auto,*" Padding="16" RowSpacing="16">
+
+        <!-- Entry form -->
+        <VerticalStackLayout Grid.Row="0" Spacing="8">
+            <Entry Placeholder="Amount (e.g. 12.50)"
+                   Keyboard="Numeric"
+                   Text="{Binding AmountText}" />
+            <Entry Placeholder="Category"
+                   Text="{Binding Category}" />
+            <DatePicker Date="{Binding Date}" />
+            <Entry Placeholder="Note (optional)"
+                   Text="{Binding Note}" />
+            <Button Text="Add"
+                    Command="{Binding AddCommand}" />
+        </VerticalStackLayout>
+
+        <!-- Transaction list -->
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding Transactions}">
+            <CollectionView.EmptyView>
+                <Label Text="No transactions yet"
+                       HorizontalOptions="Center" />
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Transaction">
+                    <Grid ColumnDefinitions="*,Auto,Auto"
+                          ColumnSpacing="12"
+                          Padding="0,8">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="{Binding Category}"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding Date, StringFormat='{0:ddd d MMM}'}"
+                                   FontSize="12" />
+                            <Label Text="{Binding Note}"
+                                   FontSize="12" />
+                        </VerticalStackLayout>
+                        <Label Grid.Column="1"
+                               Text="{Binding Amount, StringFormat='{0:C}'}"
+                               VerticalOptions="Center" />
+                        <Button Grid.Column="2"
+                                Text="✕"
+                                Command="{Binding DeleteCommand, Source={RelativeSource AncestorType={x:Type vm:TransactionsViewModel}}, x:DataType=vm:TransactionsViewModel}"
+                                CommandParameter="{Binding .}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
